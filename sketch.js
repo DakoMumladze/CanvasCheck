@@ -5,15 +5,31 @@ const settings = {
 };
 
 const sketch = () => {
+  const createGrid = () => {
+    const points = [];
+    const count = 5;
+    for (let x = 0; x < count; x++) {
+      for (let y = 0; y < count; y++) {
+        const u = x / (count - 1);
+        const v = y / (count - 1);
+        points.push([u, v]);
+      }
+    }
+    return points;
+  };
+  const points = createGrid();
   return ({ context, width, height }) => {
-    context.fillStyle = "pink";
-    context.fillRect(0, 0, width, height);
-    context.arc(width / 2, height / 2, 200, 0, 2 * Math.PI);
-    context.fillStyle = "orange";
-    context.fill();
-    context.lineWidth = "20";
-    context.strokeStyle = "white";
-    context.stroke();
+    context.fillStyle = "white";
+    context.fillRect = (0, 0, width, height);
+    points.forEach(([u, v]) => {
+      const x = u * width;
+      const y = v * height;
+      context.beginPath();
+      context.arc(x, y, 100, 0, Math.PI * 2, false);
+      context.strokeStyle = "black";
+      context.lineWidth = 40;
+      context.stroke();
+    });
   };
 };
 
